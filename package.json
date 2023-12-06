@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/day1.js",
-    "test": "jest"
+    "test": "jest",
+    "solve": "npm run build && npm run start"
   },
   "author": "",
   "license": "ISC",
