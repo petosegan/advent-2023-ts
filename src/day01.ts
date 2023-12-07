@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import {main} from './common';
 
 export function calibrate(line: string): number {
     const chars = line.split('');
@@ -52,22 +52,6 @@ export function solve_b(lines: string[]): number {
     return sum;
 }
 
-async function load(): Promise<string[]> {
-    const data = fs.readFileSync('data/input01.txt');
-    const text = data.toString();
-    const lines = text.trim().split('\n');
-    return lines;
-}
-
-async function main(): Promise<number[]> {
-    const lines = await load();
-    const result_a = solve_a(lines);
-    console.log(result_a);
-    const result_b = solve_b(lines)
-    console.log(result_b);
-    return [result_a, result_b]
-}
-
 if (require.main == module) {
-    main();
+    main('data/input01.txt', [solve_a, solve_b]);
 }
