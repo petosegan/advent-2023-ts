@@ -1,4 +1,4 @@
-import { solve_a, transform, calibrate } from './day01'
+import { solveA, transform, calibrate } from './day01'
 import { test, expect } from '@jest/globals'
 
 test('solves correctly on test text', () => {
@@ -6,9 +6,11 @@ test('solves correctly on test text', () => {
         1abc2
         pqr3stu8vwx
         a1b2c3d4e5f
-        treb7uchet`.trim().split('\n')
-    // console.log(test_text);
-  expect(solve_a(testText)).toBe(142)
+        treb7uchet`
+    .trim()
+    .split('\n')
+  // console.log(test_text);
+  expect(solveA(testText)).toBe(142)
 })
 
 test('calibrates correctly on test lines', () => {

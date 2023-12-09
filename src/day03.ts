@@ -1,5 +1,5 @@
 // Determine which games would have been possible if the bag contained 12 red, 13 green, 14 blue
-import { main } from './common'
+// import { main } from './common'
 
 interface Coord {
   x: number
@@ -17,11 +17,11 @@ function areAdjacent (a: Coord, b: Coord): boolean {
 
   // Adjacent if the difference in either x or y is 1 and the other is 0,
   // or if both are 1 (diagonal adjacency)
-  return (dx <= 1 && dy <= 1)
+  return dx <= 1 && dy <= 1
 }
 
 function areGearNumberAdjacent (g: HasCoord, n: Numerals): boolean {
-  const isDigitAdjacent = n.coords.some(c => areAdjacent(c, g.coord))
+  const isDigitAdjacent = n.coords.some((c) => areAdjacent(c, g.coord))
   return isDigitAdjacent
 }
 
@@ -83,7 +83,9 @@ export class Diagram {
   public findGears (gearlikes: Gearlike[], numbers: Numerals[]): Gear[] {
     const gears: Gear[] = []
     for (const gearlike of gearlikes) {
-      const theseNeighbors = numbers.filter(n => areGearNumberAdjacent(gearlike, n))
+      const theseNeighbors = numbers.filter((n) =>
+        areGearNumberAdjacent(gearlike, n)
+      )
       if (theseNeighbors.length === 2) {
         gears.push(new Gear(gearlike.coord, theseNeighbors))
       }
@@ -155,8 +157,11 @@ export class Diagram {
       const text = numberMatch[0]
       const start = numberMatch.index
 
-      const positions = Array.from({ length: text.length }, (_, i) => start + i)
-      const coords = positions.map(pos => ({ x: pos, y }))
+      const positions = Array.from(
+        { length: text.length },
+        (_, i) => start + i
+      )
+      const coords = positions.map((pos) => ({ x: pos, y }))
       numbers.push({ value: parseInt(text), coords })
     }
 
@@ -187,7 +192,7 @@ export class Diagram {
     // Find the numbers that are adjacent to a symbol,
     // using a mask
     const mask = this.makeMask(this.symbols)
-    const partNumbers = this.numbers.filter(number => {
+    const partNumbers = this.numbers.filter((number) => {
       for (const coord of number.coords) {
         if (mask[coord.y][coord.x] === 1) {
           return true
@@ -197,13 +202,13 @@ export class Diagram {
     })
     return partNumbers
   }
-};
+}
 
 export function solveA (lines: string[]): number {
   const diagram = new Diagram(lines)
   // console.log(diagram);
   const partNumbers = diagram.findPartNumbers()
-  const partNumberValues = partNumbers.map(number => number.value)
+  const partNumberValues = partNumbers.map((number) => number.value)
   const sum = partNumberValues.reduce((a, b) => a + b, 0)
   return sum
 }
@@ -211,11 +216,11 @@ export function solveA (lines: string[]): number {
 export function solveB (lines: string[]): number {
   const diagram = new Diagram(lines)
   // console.log(diagram);
-  const gearRatios = diagram.gears.map(gear => gear.gear_ratio())
+  const gearRatios = diagram.gears.map((gear) => gear.gear_ratio())
   const sum = gearRatios.reduce((a, b) => a + b, 0)
   return sum
 }
 
-if (require.main === module) {
-  await main('data/input03.txt', [solveA, solveB])
-}
+// if (require.main === module) {
+//   await main('data/input03.txt', [solveA, solveB])
+// }

@@ -1,7 +1,5 @@
 // Determine which games would have been possible if the bag contained 12 red, 13 green, 14 blue
 
-import { main } from './common'
-
 // a Pull object is a mapping from color to number
 interface Pull {
   red?: number
@@ -45,54 +43,61 @@ class Game {
 
 function isValidPull (pull: Pull): boolean {
   // Check if the pull is valid
-  const red_valid = pull.red === undefined || pull.red <= 12
-  const green_valid = pull.green === undefined || pull.green <= 13
-  const blue_valid = pull.blue === undefined || pull.blue <= 14
-  return red_valid && green_valid && blue_valid
+  const redValid = pull.red === undefined || pull.red <= 12
+  const greenValid = pull.green === undefined || pull.green <= 13
+  const blueValid = pull.blue === undefined || pull.blue <= 14
+  return redValid && greenValid && blueValid
 }
 
 function isValidGame (game: Game): boolean {
   // Check if the game is valid
   // A game is valid if all pulls are valid
-  const is_valid = game.pulls.every(pull => isValidPull(pull))
-  return is_valid
+  const isValid = game.pulls.every((pull) => isValidPull(pull))
+  return isValid
 }
 
 function minBag (game: Game): Pull {
-  const min_pull = { red: 0, green: 0, blue: 0 }
+  const minPull = { red: 0, green: 0, blue: 0 }
   for (const pull of game.pulls) {
-    if (pull.red !== undefined && pull.red > min_pull.red) {
-      min_pull.red = pull.red
+    if (pull.red !== undefined && pull.red > minPull.red) {
+      minPull.red = pull.red
     }
-    if (pull.green !== undefined && pull.green > min_pull.green) {
-      min_pull.green = pull.green
+    if (pull.green !== undefined && pull.green > minPull.green) {
+      minPull.green = pull.green
     }
-    if (pull.blue !== undefined && pull.blue > min_pull.blue) {
-      min_pull.blue = pull.blue
+    if (pull.blue !== undefined && pull.blue > minPull.blue) {
+      minPull.blue = pull.blue
     }
   }
-  return min_pull
+  return minPull
 }
 
-export function solve_a (lines: string[]): number {
+export function solveA (lines: string[]): number {
   // for each line, build a 'game' object
-  const games = lines.map(line => new Game(line))
-  const valid_games = games.filter(game => isValidGame(game))
-  const valid_ids = valid_games.map(game => game.id)
-  console.log(valid_ids)
-  const sum_valid_ids = valid_ids.reduce((a, b) => a + b, 0)
-  return sum_valid_ids
+  const games = lines.map((line) => new Game(line))
+  const validGames = games.filter((game) => isValidGame(game))
+  const validIds = validGames.map((game) => game.id)
+  console.log(validIds)
+  const sumValidIds = validIds.reduce((a, b) => a + b, 0)
+  return sumValidIds
 }
 
-export function solve_b (lines: string[]): number {
-  const games = lines.map(line => new Game(line))
-  const min_bags = games.map(game => minBag(game))
-  console.log(min_bags)
-  const powers = min_bags.map(pull => (pull.red || 1) * (pull.green || 2) * (pull.blue || 1))
-  const sum_powers = powers.reduce((a, b) => a + b, 0)
-  return sum_powers
+export function solveB (lines: string[]): number {
+  const games = lines.map((line) => new Game(line))
+  const minBags = games.map((game) => minBag(game))
+  console.log(minBags)
+
+  const powers = minBags.map((pull) => {
+    const red = pull.red ?? 1
+    const green = pull.green ?? 1
+    const blue = pull.blue ?? 1
+    return red * green * blue
+  })
+
+  const sumPowers = powers.reduce((a, b) => a + b, 0)
+  return sumPowers
 }
 
-if (require.main == module) {
-  main('data/input02.txt', [solve_a, solve_b])
-}
+// if (require.main == module) {
+//   main('data/input02.txt', [solveA, solveB])
+// }

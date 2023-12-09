@@ -11,15 +11,15 @@ app.use(express.static('public'))
 app.get('/diagram-data', async (req: Request, res: Response) => {
   const lines: string[] = await load('data/input03.txt')
   const diagram = new Diagram(lines)
-  const symbol_mask = diagram.makeMask(diagram.symbols)
-  const gearlike_mask = diagram.makeMask(diagram.gearlikes)
-  const gear_mask = diagram.makeMask(diagram.gears)
+  const symbolMask = diagram.makeMask(diagram.symbols)
+  const gearlikeMask = diagram.makeMask(diagram.gearlikes)
+  const gearMask = diagram.makeMask(diagram.gears)
 
   res.json({
     diagram: lines,
-    symbol_mask: diagram.makeMaskString(symbol_mask),
-    gearlike_mask: diagram.makeMaskString(gearlike_mask),
-    gear_mask: diagram.makeMaskString(gear_mask)
+    symbol_mask: diagram.makeMaskString(symbolMask),
+    gearlike_mask: diagram.makeMaskString(gearlikeMask),
+    gear_mask: diagram.makeMaskString(gearMask)
   })
 })
 

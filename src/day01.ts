@@ -1,16 +1,16 @@
-import { main } from './common'
-
 export function calibrate (line: string): number {
   const chars = line.split('')
-  const number_chars: string[] = chars.filter(char => char >= '0' && char <= '9')
-  const first_and_last = number_chars[0] + number_chars[number_chars.length - 1]
-  const number = parseInt(first_and_last)
+  const numberChars: string[] = chars.filter(
+    (char) => char >= '0' && char <= '9'
+  )
+  const firstAndLast = numberChars[0] + numberChars[numberChars.length - 1]
+  const number = parseInt(firstAndLast)
   return number
 }
 
-export function solve_a (lines: string[]): number {
+export function solveA (lines: string[]): number {
   // for each line, get the calibration value
-  const calibrations = lines.map(line => calibrate(line))
+  const calibrations = lines.map((line) => calibrate(line))
   // console.log(calibrations);
   // then sum them all up
   const sum = calibrations.reduce((a, b) => a + b, 0)
@@ -32,19 +32,21 @@ const NUMBER_WORDS_MAP = {
 
 export function transform (line: string): string {
   // Transform number words like 'one' in to numbers like 'o1e'
-  let line_copy = line
-  for (const [number_word, number_word_transform] of Object.entries(NUMBER_WORDS_MAP)) {
-    line_copy = line_copy.replaceAll(number_word, number_word_transform)
+  let lineCopy = line
+  for (const [numberWord, numberWordTransform] of Object.entries(
+    NUMBER_WORDS_MAP
+  )) {
+    lineCopy = lineCopy.replaceAll(numberWord, numberWordTransform)
   }
-  return line_copy
+  return lineCopy
 }
 
-export function solve_b (lines: string[]): number {
+export function solveB (lines: string[]): number {
   // for each line, transform number words into numbers
-  const transformed = lines.map(line => transform(line))
+  const transformed = lines.map((line) => transform(line))
   // console.log('transformed:', transformed);
   // then calibrate
-  const calibrations = transformed.map(line => calibrate(line))
+  const calibrations = transformed.map((line) => calibrate(line))
   // console.log('calibrations: ', calibrations);
   // then sum them all up
   const sum = calibrations.reduce((a, b) => a + b, 0)
@@ -52,6 +54,6 @@ export function solve_b (lines: string[]): number {
   return sum
 }
 
-if (require.main == module) {
-  main('data/input01.txt', [solve_a, solve_b])
-}
+// if (require.main === module) {
+//   await main('data/input01.txt', [solveA, solveB])
+// }

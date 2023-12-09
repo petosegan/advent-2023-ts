@@ -3,6 +3,9 @@
 
 data/
 
+.vscode/
+.husky/
+
 ### Node ###
 # Logs
 logs
