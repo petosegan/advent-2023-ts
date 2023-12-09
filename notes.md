@@ -32,6 +32,16 @@
 - and I wrap it in `nodemon` to restart on file change
 - There was some annoyance about getting the button to work. It was a scope problem.
 
+## Linting and Formatting
+
+I set up the Prettier ESLint extension.
+Also this:
+
+```bash
+npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin --save-dev
+npx eslint --init
+```
+
 ## Day 05 B
 
 Interesting problem. I need to transform ranges using linear maps.
