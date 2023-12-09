@@ -11,10 +11,10 @@ export function calibrate(line: string): number {
 export function solve_a(lines: string[]): number {
     // for each line, get the calibration value
     const calibrations = lines.map(line => calibrate(line));
-    console.log(calibrations);
+    // console.log(calibrations);
     // then sum them all up
     const sum = calibrations.reduce((a, b) => a + b, 0);
-    console.log(sum);
+    // console.log(sum);
     return sum;
 }
 
@@ -42,13 +42,13 @@ export function transform(line: string): string {
 export function solve_b(lines: string[]): number {
     // for each line, transform number words into numbers
     const transformed = lines.map(line => transform(line));
-    console.log('transformed:', transformed);
+    // console.log('transformed:', transformed);
     // then calibrate
     const calibrations = transformed.map(line => calibrate(line));
-    console.log('calibrations: ', calibrations);
+    // console.log('calibrations: ', calibrations);
     // then sum them all up
     const sum = calibrations.reduce((a, b) => a + b, 0);
-    console.log('b_sum: ', sum);
+    // console.log('b_sum: ', sum);
     return sum;
 }
 

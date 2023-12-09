@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-async function load(filename: string): Promise<string[]> {
+export async function load(filename: string): Promise<string[]> {
     const data = fs.readFileSync(filename);
     const text = data.toString();
     const lines = text.trim().split('\n');
