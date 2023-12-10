@@ -20,13 +20,24 @@ export class Mapper {
   }
 
   transformRanges (ranges: Range[]): Range[] {
-    let result: Range[] = []
-    for (const range of ranges) {
-      for (const inputMap of this.input_maps) {
-        const tfmRanges = inputMap.transformRange(range)
-        result = [...result, ...tfmRanges]
+    let rawRanges: Range[] = ranges
+    let transformedRanges: Range[] = []
+    for (const inputMap of this.input_maps) {
+      const thisMapUntouched: Range[] = []
+      const thisMapTransformed: Range[] = []
+      for (const range of rawRanges) {
+        const [thisRangeUntouched, thisRangeTransformed] = inputMap.transformRange(range)
+        thisMapUntouched.push(...thisRangeUntouched)
+        if (thisRangeTransformed!= null) {
+          thisMapTransformed.push(thisRangeTransformed)
+        }
       }
+      rawRanges = thisMapUntouched
+      transformedRanges = mergeRanges([...transformedRanges,...thisMapTransformed])
     }
-    return mergeRanges(result)
+    const totalUntouched: Range[] = mergeRanges(rawRanges)
+    // untouched ranges map via the identity
+    const totalTransformed: Range[] = mergeRanges([...transformedRanges,...totalUntouched])
+    return totalTransformed
   }
 }

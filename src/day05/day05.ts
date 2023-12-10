@@ -2,7 +2,7 @@ import { main } from '../common.js'
 import { extractRanges, type Range, minRanges } from './range.js'
 import { RangeMap } from './rangemap.js'
 import { Mapper } from './mapper.js'
-export { RangeMap }
+export { RangeMap, Range, Mapper }
 
 function parseSeedRanges (seedString: string): Range[] {
   // Parse the seed string into a list of seed ranges
@@ -28,8 +28,8 @@ function parseRangeMaps (mappingLines: string): RangeMap[] {
   for (const inputMapLine of inputMapLines) {
     const [destStart, sourceStart, rangeLength] = inputMapLine.split(' ')
     const inputMap = new RangeMap(
-      parseInt(sourceStart, 10),
       parseInt(destStart, 10),
+      parseInt(sourceStart, 10),
       parseInt(rangeLength, 10)
     )
     inputMaps.push(inputMap)
@@ -138,9 +138,10 @@ export function solveB (lines: string[]): number {
       throw new Error(`Missing map ${mapName}`)
     }
     const thisDest = thisMap?.dest
+    console.log(values)
     values = thisMap.transformRanges(values)
 
-    // console.log(`${thisDest}: `, values);
+    console.log(`${thisDest}: `, values);
     // print the min value
     minValue = minRanges(values)
     console.log(`min ${thisDest}: `, minValue)
@@ -149,5 +150,5 @@ export function solveB (lines: string[]): number {
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  await main('data/input05_sample.txt', [solveA, solveB])
+  await main('data/input05.txt', [solveA, solveB])
 }

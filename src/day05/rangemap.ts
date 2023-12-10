@@ -1,15 +1,17 @@
-import { type Range, overlap, difference } from './range.js'
+import { type Range, overlap, difference, mergeRanges } from './range.js'
 import util from 'util'
+
+type TfmResult = [Range[], Range | null]
 
 class RangeMap {
   constructor (
-    public source_start: number,
     public dest_start: number,
+    public source_start: number,
     public range_length: number
   ) {}
 
   toString (): string {
-    return `${this.source_start} ${this.dest_start} ${this.range_length}`
+    return `${this.dest_start} ${this.source_start} ${this.range_length}`
   }
 
   [util.inspect.custom] (depth: number, options: any): string {
@@ -27,23 +29,25 @@ class RangeMap {
     return null
   }
 
-  transformRange (range: Range): Range[] {
+
+  transformRange (range: Range): TfmResult {
     // Transform a range of values from the source to the destination
+    // returning the untouched parts and the transformed part
     const sourceRange: Range = [
       this.source_start,
       this.source_start + this.range_length
     ]
     const overlapRange = overlap(sourceRange, range)
     if (overlapRange === null) {
-      return [range]
+      return [[range], null]
     }
     const tfmOverlapRange: Range = [
       this.dest_start + (overlapRange[0] - this.source_start),
       this.dest_start + (overlapRange[1] - this.source_start)
     ]
-    const differenceRanges = difference(range, overlapRange)
-    return [...differenceRanges, tfmOverlapRange]
+    const differenceRanges = difference(range, sourceRange)
+    return [differenceRanges, tfmOverlapRange]
   }
 }
 
-export {RangeMap}
+export {RangeMap, TfmResult}
