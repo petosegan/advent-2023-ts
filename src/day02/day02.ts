@@ -1,5 +1,7 @@
 // Determine which games would have been possible if the bag contained 12 red, 13 green, 14 blue
 
+import { main } from '../common.js'
+
 // a Pull object is a mapping from color to number
 interface Pull {
   red?: number
@@ -98,6 +100,6 @@ export function solveB (lines: string[]): number {
   return sumPowers
 }
 
-// if (require.main == module) {
-//   main('data/input02.txt', [solveA, solveB])
-// }
+if (import.meta.url === `file://${process.argv[1]}`) {
+  await main('data/input02.txt', [solveA, solveB])
+}

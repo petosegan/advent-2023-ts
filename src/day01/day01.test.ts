@@ -1,4 +1,4 @@
-import { solveA, transform, calibrate } from './day01'
+import { solveA, transform, calibrate } from './day01.js'
 import { test, expect } from '@jest/globals'
 
 test('solves correctly on test text', () => {

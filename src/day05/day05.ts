@@ -1,7 +1,7 @@
-import { main } from '../common'
-import { extractRanges, type Range, minRanges } from './range'
-import { RangeMap } from './rangemap'
-import { Mapper } from './mapper'
+import { main } from '../common.js'
+import { extractRanges, type Range, minRanges } from './range.js'
+import { RangeMap } from './rangemap.js'
+import { Mapper } from './mapper.js'
 
 function parseSeedRanges (seedString: string): Range[] {
   // Parse the seed string into a list of seed ranges
@@ -13,7 +13,7 @@ function parseSeeds (seedString: string): number[] {
   // Parse the seed string into a list of numbers
   const [, seedList] = seedString.split(':')
   const seedMatches = seedList.match(/\d+/g)
-  const seeds = seedMatches?.map(sm => parseInt(sm, 10))
+  const seeds = seedMatches?.map((sm) => parseInt(sm, 10))
   if (seeds === undefined) {
     throw new Error('Invalid seed list')
   }
@@ -49,7 +49,7 @@ function parseMappers (lines: string[]): Mapper[] {
   // Parse a list of mappers from the input file
   const fileText = lines.join('\n')
   const fileSections = fileText.split('\n\n')
-  const maps = fileSections.map(fs => parseMapper(fs))
+  const maps = fileSections.map((fs) => parseMapper(fs))
   return maps
 }
 
@@ -95,7 +95,7 @@ export function solveA (lines: string[]): number {
       throw new Error(`Missing map ${mapName}`)
     }
     const thisDest = thisMap.dest
-    values = values.map(value => thisMap.match(value))
+    values = values.map((value) => thisMap.match(value))
     console.log(`${thisDest}: `, values)
     // print the min value
     console.log(`min ${thisDest}: `, Math.min(...values))
@@ -147,6 +147,6 @@ export function solveB (lines: string[]): number {
   return minValue
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   await main('data/input05_sample.txt', [solveA, solveB])
 }

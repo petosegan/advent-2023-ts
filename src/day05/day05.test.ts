@@ -1,4 +1,4 @@
-import { RangeMap } from './rangemap'
+import { RangeMap } from './rangemap.js'
 import { test, expect } from '@jest/globals'
 
 test('correctly map inputs', () => {

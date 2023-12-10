@@ -1,3 +1,5 @@
+import { main } from '../common.js'
+
 export function calibrate (line: string): number {
   const chars = line.split('')
   const numberChars: string[] = chars.filter(
@@ -54,6 +56,6 @@ export function solveB (lines: string[]): number {
   return sum
 }
 
-// if (require.main === module) {
-//   await main('data/input01.txt', [solveA, solveB])
-// }
+if (import.meta.url === `file://${process.argv[1]}`) {
+  await main('data/input01.txt', [solveA, solveB])
+}

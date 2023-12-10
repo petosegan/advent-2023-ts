@@ -1,4 +1,4 @@
-// import { main } from './common'
+import { main } from '../common.js'
 
 class Card {
   id: number
@@ -74,6 +74,6 @@ export function solveB (lines: string[]): number {
   return sum
 }
 
-// if (require.main === module) {
-//   main('data/input04.txt', [solveA, solveB])
-// }
+if (import.meta.url === `file://${process.argv[1]}`) {
+  await main('data/input04.txt', [solveA, solveB])
+}

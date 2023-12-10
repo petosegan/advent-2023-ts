@@ -15,6 +15,8 @@
 
 - `jest` seems fine
 - `jest.config.js` is required for ts compatibility
+- Things get screwy when I convert to ES modules.
+  - It seems like the tests are unable to reference the compiled js modules.
 
 ## logging
 

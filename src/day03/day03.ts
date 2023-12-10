@@ -1,5 +1,5 @@
 // Determine which games would have been possible if the bag contained 12 red, 13 green, 14 blue
-// import { main } from './common'
+import { main } from '../common.js'
 
 interface Coord {
   x: number
@@ -221,6 +221,6 @@ export function solveB (lines: string[]): number {
   return sum
 }
 
-// if (require.main === module) {
-//   await main('data/input03.txt', [solveA, solveB])
-// }
+if (import.meta.url === `file://${process.argv[1]}`) {
+  await main('data/input03.txt', [solveA, solveB])
+}
