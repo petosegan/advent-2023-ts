@@ -4,21 +4,38 @@
 
 - needs `build: tsc`
 - you can't just run node, always need to build first
+- hmm, unless you use `ts-node`
 
 ## Compiler options:
 
-- "target": "es2021" matters to match docs. default is 2016, too old
-- "target": "es2022" is better, allows top-level async
-- Probably want to set the outDir
+- `"target": "es2021"` matters to match docs. default is 2016, too old
+- `"target": "es2022"` is better, allows top-level async
+- Probably want to set the `"outDir": "./dist"`
 
 ## testing
 
 - `jest` seems fine
 - Things get screwy when I convert to ES modules.
   - It seems like the tests are unable to reference the compiled js modules.
+  - need to set `moduleNameMapper` in `jest.config.js` so that imports can reference `.js` files without breaking the tests.
 - It looks better to use `npm init jest@latest` to autogen the config file
   - eh, but that does not seem to work with TS
 - OK, possibly what I want is [`ts-jest`](https://kulshekhar.github.io/ts-jest/docs/)
+- Yeah. After a great deal of futzing around, I reach a combination that works.
+  - In `package.json`
+    - `"test": "node --experimental-vm-modules ./node_modules/.bin/jest"`
+    - `"type": "module"`
+  - In `jest.config.js`:
+    - `preset: "ts-jest/presets/default-esm`
+  - In `tsconfig.json`:
+    - `"target": "esnext"`
+    - `"module": "esnext"`
+    - `"moduleResolution": "Node"`
+- Also, it is important to avoid running tests against `dist`:
+  - In `tsconfig.json`:
+    - `"exclude": ["**/*.test.ts]`
+  - In `jest.config.js`:
+    - `testPathIgnorePatterns: ["/dist/"]`
 
 ## logging
 
@@ -38,34 +55,8 @@
 
 ## Linting and Formatting
 
-I set up the Prettier ESLint extension.
-Also this:
+I set up the Prettier ESLint extension. It explains what to put in the project `settings.json`.
 
 ```bash
-npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin --save-dev
 npx eslint --init
 ```
-
-## Day 05 B
-
-Interesting problem. I need to transform ranges using linear maps.
-So for example I have the range (79, 93)
-and the maps: (50, 98, 2), (52, 50, 48), expressed as (dest_start, source_start, length).
-
-I can transform this by:
-
-1. Finding which maps overlap the range
-2. Transform the overlaps and pass the non-overlaps
-3. Merge the results
-
-So in this case:
-
-1. (52, 50, 48) overlaps the range: it covers (50, 98) and the overlap is (79, 93)
-2. The transformation gives (81, 95), no non-overlaps
-3. No merge step
-
-How about (55, 68)? Let's imagine the map is (52, 60, 48)
-
-1. Overlap is (60, 68), non overlap is (55, 60)
-2. Transform to (52, 60), (55, 60)
-3. Merge to (52, 60)
