@@ -1,3 +1,6 @@
-export const preset = "ts-jest";
-export const testEnvironment = "node";
-export const transform = {};
+export default {
+  preset: "ts-jest/presets/default-esm",
+  testEnvironment: "node",
+  testPathIgnorePatterns: ["/node_modules/", "/dist/"],
+  extensionsToTreatAsEsm: [".ts"],
+};

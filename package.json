@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "nodemon --exec ts-node src/day03.ts",
     "launch": "node launcher.js",
-    "test": "true",
+    "test": "node --experimental-vm-modules ./node_modules/.bin/jest",
     "solve": "rm -rf dist && npm run build && npm run launch",
     "prepare": "husky install",
     "lint": "eslint . --ext .ts"

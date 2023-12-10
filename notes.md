@@ -14,9 +14,11 @@
 ## testing
 
 - `jest` seems fine
-- `jest.config.js` is required for ts compatibility
 - Things get screwy when I convert to ES modules.
   - It seems like the tests are unable to reference the compiled js modules.
+- It looks better to use `npm init jest@latest` to autogen the config file
+  - eh, but that does not seem to work with TS
+- OK, possibly what I want is [`ts-jest`](https://kulshekhar.github.io/ts-jest/docs/)
 
 ## logging
 

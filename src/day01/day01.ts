@@ -1,4 +1,4 @@
-import { main } from '../common.js'
+import { main } from '../common'
 
 export function calibrate (line: string): number {
   const chars = line.split('')

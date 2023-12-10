@@ -1,5 +1,5 @@
-import { Diagram, solveB } from './day03.js'
-import { test, expect } from '@jest/globals'
+import { Diagram, solveB } from './day03'
+// import { test, expect } from '@jest/globals'
 
 test('correctly parses lines', () => {
   const diagram = new Diagram(['aa', 'bb'])

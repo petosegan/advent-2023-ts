@@ -1,6 +1,6 @@
-export type Range = [number, number]
+type Range = [number, number]
 
-export function extractRanges (input: string): Range[] {
+function extractRanges (input: string): Range[] {
   // Extract numbers using a regular expression and convert them to integers
   const numbers = input.match(/\d+/g)?.map(n => parseInt(n))
   if (numbers === undefined) {
@@ -18,7 +18,7 @@ export function extractRanges (input: string): Range[] {
   }, [])
 }
 
-export function mergeRanges (ranges: Range[]): Range[] {
+function mergeRanges (ranges: Range[]): Range[] {
   // Merge an array of ranges into the smallest number of non overlapping ranges
   // Sort the ranges by the start value
   const sortedRanges = ranges.sort((a, b) => a[0] - b[0])
@@ -39,7 +39,7 @@ export function mergeRanges (ranges: Range[]): Range[] {
   return mergedRanges
 }
 
-export function overlap (r1: Range, r2: Range): Range | null {
+function overlap (r1: Range, r2: Range): Range | null {
   // Return the range of values that overlap between two ranges
   // or null if they do not overlap
   const [r1Start, r1End] = r1
@@ -52,7 +52,7 @@ export function overlap (r1: Range, r2: Range): Range | null {
   return null
 }
 
-export function difference (r1: Range, r2: Range): Range[] {
+function difference (r1: Range, r2: Range): Range[] {
   // Return the range of values in r1 that are not in r2
   const [r1Start, r1End] = r1
   const [r2Start, r2End] = r2
@@ -64,7 +64,9 @@ export function difference (r1: Range, r2: Range): Range[] {
   return [r1]
 }
 
-export function minRanges (ranges: Range[]): number {
+function minRanges (ranges: Range[]): number {
   // Return the minimum value in an array of ranges
   return Math.min(...ranges.map(r => r[0]))
 }
+
+export { Range, overlap, difference, minRanges, extractRanges, mergeRanges}

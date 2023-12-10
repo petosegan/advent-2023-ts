@@ -1,7 +1,7 @@
-import { type Range, overlap, difference } from './range.js'
+import { type Range, overlap, difference } from './range'
 import util from 'util'
 
-export class RangeMap {
+class RangeMap {
   constructor (
     public source_start: number,
     public dest_start: number,
@@ -45,3 +45,5 @@ export class RangeMap {
     return [...differenceRanges, tfmOverlapRange]
   }
 }
+
+export {RangeMap}
