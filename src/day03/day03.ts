@@ -1,5 +1,5 @@
 // Determine which games would have been possible if the bag contained 12 red, 13 green, 14 blue
-import { main } from '../common'
+import { main } from '../common.js'
 
 interface Coord {
   x: number

@@ -3,4 +3,7 @@ export default {
   testEnvironment: "node",
   testPathIgnorePatterns: ["/node_modules/", "/dist/"],
   extensionsToTreatAsEsm: [".ts"],
+  moduleNameMapper: {
+    "^(.+).js$": "$1",
+  },
 };

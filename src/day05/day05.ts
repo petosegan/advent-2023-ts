@@ -1,7 +1,7 @@
-import { main } from '../common'
-import { extractRanges, type Range, minRanges } from './range'
-import { RangeMap } from './rangemap'
-import { Mapper } from './mapper'
+import { main } from '../common.js'
+import { extractRanges, type Range, minRanges } from './range.js'
+import { RangeMap } from './rangemap.js'
+import { Mapper } from './mapper.js'
 export { RangeMap }
 
 function parseSeedRanges (seedString: string): Range[] {

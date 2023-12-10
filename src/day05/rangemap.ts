@@ -1,4 +1,4 @@
-import { type Range, overlap, difference } from './range'
+import { type Range, overlap, difference } from './range.js'
 import util from 'util'
 
 class RangeMap {

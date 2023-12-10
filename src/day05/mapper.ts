@@ -1,5 +1,5 @@
-import { RangeMap } from './rangemap'
-import { mergeRanges, type Range } from './range'
+import { RangeMap } from './rangemap.js'
+import { mergeRanges, type Range } from './range.js'
 
 export class Mapper {
   constructor (
